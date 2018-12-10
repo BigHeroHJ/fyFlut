@@ -19,17 +19,14 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
       color: Colors.red,
       child: new Column(
         children: <Widget>[
-          new Container(
-            color: Colors.blue,
-            child: new FlareActor("asserts/Change Color Example.flr",
-                fit: BoxFit.cover,
-                alignment: Alignment.center,
-                animation: "changeColor"),
-            constraints: BoxConstraints.expand(width: 300, height: 100),
-          ),
-          //new FlareActor("/asserts/New File.flr",alignment: Alignment.center,animation:"idle"),
-//          new Expanded(child: buildTransTable()),
-////          bottomWidget(),
+//          new Container(
+//            color: Colors.blue,
+//            child: FlareActor("assets/New File.flr", // You can find the example project here: https://www.2dimensions.com/a/castor/files/flare/change-color-example
+//              fit: BoxFit.contain, alignment: Alignment.center,animation: "changeColor",),
+//            constraints: BoxConstraints.expand(width: 100, height: 50),
+//          ),
+           new Expanded(child: buildTransTable()),
+           bottomWidget(),
         ],
       ),
     );
@@ -37,8 +34,8 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
 
   sendMessage(bool isCN) {
     AudioTransModel model = AudioTransModel();
-    model.transText = "我的饿过 我的饿过我的饿过";
-    model.oriTrans = "我的饿过我的饿过我的饿过";
+    model.transText = "我的饿过";
+    model.oriTrans = "我的饿过";
     model.isCN = isCN;
     setState(() {
       listMessage.add(model);
@@ -111,15 +108,19 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
 
   //列表build
   Widget buildTransTable() {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        return buildMessage(context, index);
-      },
-      itemCount: listMessage.length,
-      controller: _scrollController,
+    return new RefreshIndicator(
+        child:  ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return buildMessage(context, index);
+          },
+          itemCount: listMessage.length,
+          controller: _scrollController,
 //      reverse: true,
 //      shrinkWrap: true,
-    );
+        ),
+        onRefresh: (){
+          print("refresh");
+        });
   }
 
 //底部按钮
