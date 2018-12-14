@@ -5,6 +5,8 @@ import 'package:flutter_app/HeroAnimatPage.dart';
 
 import 'dart:math' as math;
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 
 class TextTranslateWidget extends StatefulWidget {
   @override
@@ -19,6 +21,28 @@ class _TextTranslateWidgetState extends State<TextTranslateWidget> {
 
   @override
   Widget build(BuildContext context) {
+//    return new Container(
+//      color: Colors.red,
+//      child: new UnconstrainedBox(
+//        child: new Container(
+//          constraints: BoxConstraints(
+//            minWidth: 100,
+//            minHeight: 200,
+//            maxHeight: 300,
+//            maxWidth: 200,
+//          ),
+//          color: Colors.blue,
+//          child: new Container(
+//            color: Colors.yellow,
+//            constraints: BoxConstraints(
+//              maxHeight: 30,
+//              maxWidth: 20,
+//            ),
+//            child: Text("父子组件的约束限制，maxwidth 和maxheight 测试"),
+//          ),
+//        ),
+//      ),
+//    );
     return new Scaffold(
       body: new Column(
         children: <Widget>[

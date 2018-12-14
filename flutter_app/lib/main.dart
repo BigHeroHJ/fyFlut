@@ -13,13 +13,12 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'Flutter Demo',
       theme: defaultTheme(),
       home: MyHomePage(),
-      routes:{
-        "HeroSecond" : (BuildContext context) =>  new HeroPage(),
+      routes: {
+        "HeroSecond": (BuildContext context) => new HeroPage(),
       },
 //        MaterialPageRoute
     );
@@ -33,9 +32,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int _currentPage = 0;
-  PageController  _pageController = new PageController(initialPage: 0,);
+  PageController _pageController = new PageController(
+    initialPage: 0,
+  );
 
   @override
   void initState() {
@@ -43,13 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void setState(fn){
+  void setState(fn) {
     super.setState(fn);
   }
 
   @override
   Widget build(BuildContext context) {
-
 //    new NotificationListener(child: this.widget,onNotification:(NotifiPage noti){
 //      setState(() {
 //        _currentPage = noti.currentPageIndex;
@@ -60,11 +59,17 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        title: CustomAppBarWidget(_currentPage,onPress: (int pageIndex){
-            setState((){
-              _pageController.animateToPage(pageIndex, duration: Duration(microseconds: 550), curve: Curves.easeInOut);
+//title: Text("title"),
+        title: CustomAppBarWidget(
+          _currentPage,
+          onPress: (int pageIndex) {
+            setState(() {
+              _pageController.animateToPage(pageIndex,
+                  duration: Duration(microseconds: 550),
+                  curve: Curves.easeInOut);
             });
-        },) ,
+          },
+        ),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.menu), onPressed: () {}),
         ],
@@ -76,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             AudioTranslateWidget(),
             TextTranslateWidget(),
           ],
-          onPageChanged: (int pageIndex){
+          onPageChanged: (int pageIndex) {
             setState(() {
               _currentPage = pageIndex;
             });
@@ -92,19 +97,38 @@ typedef CustomBarPress = void Function(int idx);
 
 class CustomAppBarWidget extends StatefulWidget {
   int currentIndex;
-  @override CustomAppBarState createState() => CustomAppBarState();
+
 
   CustomBarPress onpress;
 
-  CustomAppBarWidget(int currentIndex,{onPress:CustomBarPress}){
+  CustomAppBarWidget(int currentIndex, {onPress: CustomBarPress}) {
     this.currentIndex = currentIndex;
-     if (onPress != null){
-       this.onpress = onPress;
-     }
+    if (onPress != null) {
+      this.onpress = onPress;
+    }
   }
+
+  @override
+  CustomAppBarState createState() => CustomAppBarState();
 }
 
-class CustomAppBarState extends State<CustomAppBarWidget> {
+class CustomAppBarState extends State<CustomAppBarWidget>
+    with SingleTickerProviderStateMixin {
+  double _unlineMoveScale = 0;
+
+  AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(vsync: this);
+    _animationController.forward();
+  }
+
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   Widget build(BuildContext context) {
     return Column(
@@ -116,11 +140,12 @@ class CustomAppBarState extends State<CustomAppBarWidget> {
             FlatButton(
                 splashColor: Colors.transparent,
                 color: Colors.transparent,
-                textColor:this.widget.currentIndex == 0? Colors.blue : Colors.black,
+                textColor:
+                    this.widget.currentIndex == 0 ? Colors.blue : Colors.black,
                 highlightColor: Colors.transparent,
                 onPressed: () {
 //                  new NotifiPage(1).dispatch(context);
-                  setState((){
+                  setState(() {
                     this.widget.onpress(0);
                   });
                 },
@@ -131,11 +156,13 @@ class CustomAppBarState extends State<CustomAppBarWidget> {
                 padding: EdgeInsets.all(0)),
             FlatButton(
                 splashColor: Colors.transparent,
-                textColor:this.widget.currentIndex == 1? Colors.lightBlue : Colors.black,
+                textColor: this.widget.currentIndex == 1
+                    ? Colors.lightBlue
+                    : Colors.black,
                 highlightColor: Colors.transparent,
                 onPressed: () {
 //                  new NotifiPage(2).dispatch(context);
-                  setState((){
+                  setState(() {
                     this.widget.onpress(1);
                   });
                 },
@@ -143,18 +170,17 @@ class CustomAppBarState extends State<CustomAppBarWidget> {
                 padding: EdgeInsets.all(0)),
           ],
         ),
-
-        new Container(
-          decoration: new UnderlineTabIndicator(
-          ),
-          width: 150,
+        new SlideTransition(position:new Tween(begin:Offset(0.0,0.0),end: Offset(10.0, 0.0)).animate(_animationController),
+            child: new Container(
+          width: 50,
           height: 5,
           constraints: BoxConstraints(),
           child: new Divider(
             color: Colors.blue,
-            height: 5,
+            height: 15,
           ),
-        )
+        )),
+
 //        new AnimatedPositioned(child: new Container(
 //          decoration: new UnderlineTabIndicator(
 //          ),

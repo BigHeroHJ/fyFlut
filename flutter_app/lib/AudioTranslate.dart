@@ -25,8 +25,8 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
 //              fit: BoxFit.contain, alignment: Alignment.center,animation: "changeColor",),
 //            constraints: BoxConstraints.expand(width: 100, height: 50),
 //          ),
-           new Expanded(child: buildTransTable()),
-           bottomWidget(),
+          new Expanded(child: buildTransTable()),
+          bottomWidget(),
         ],
       ),
     );
@@ -74,9 +74,11 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             constraints: BoxConstraints(
-                minHeight: 40,
-                minWidth: 60,
-                maxWidth: MediaQuery.of(context).size.width * 0.7),
+              minHeight: 40,
+              minWidth: 60,
+maxHeight: double.infinity,
+//                maxWidth: MediaQuery.of(context).size.width * 0.7
+            ),
             margin: EdgeInsets.only(bottom: 10.0, right: 20, left: 20),
           ),
         ],
@@ -85,21 +87,39 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
       //左边
       message = new Row(
         children: <Widget>[
-          Container(
-            child: Text(
-              model.oriTrans,
-              style: TextStyle(color: Colors.black),
-            ),
-            padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-            decoration: BoxDecoration(
-                color: Colors.lightBlue,
-                borderRadius: BorderRadius.circular(8.0)),
-            constraints: BoxConstraints(
-                minHeight: 40,
-                minWidth: 60,
-                maxWidth: MediaQuery.of(context).size.width * 0.7),
-            margin: EdgeInsets.only(bottom: 10.0, left: 20, right: 20),
-          ),
+         UnconstrainedBox(
+           child:  Container(
+             child: new Row(
+               children: <Widget>[
+                 new Padding(
+                   child: Text(
+                     "moriTrans",
+                     style: TextStyle(color: Colors.black),
+                     maxLines: 0,
+                   ),
+                   padding: EdgeInsets.all(10),
+
+                 ),
+//                SizedBox(
+//                  width: 30,
+//                  height: 30,
+//                  child: FlutterLogo(),
+//                ),
+               ],
+             ),
+             padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+             decoration: BoxDecoration(
+                 color: Colors.lightBlue,
+                 borderRadius: BorderRadius.circular(8.0)),
+             constraints: BoxConstraints(
+                 minHeight: 40,
+                 minWidth: 60,
+                 maxHeight: double.infinity,
+                 maxWidth: MediaQuery.of(context).size.width * 0.7
+             ),
+             margin: EdgeInsets.only(bottom: 10.0, left: 20, right: 20),
+           ),
+         )
         ],
       );
     }
@@ -109,7 +129,7 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
   //列表build
   Widget buildTransTable() {
     return new RefreshIndicator(
-        child:  ListView.builder(
+        child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             return buildMessage(context, index);
           },
@@ -118,7 +138,7 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
 //      reverse: true,
 //      shrinkWrap: true,
         ),
-        onRefresh: (){
+        onRefresh: () {
           print("refresh");
         });
   }
