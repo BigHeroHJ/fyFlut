@@ -60,16 +60,16 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         elevation: 0,
 //title: Text("title"),
-        title: CustomAppBarWidget(
-          _currentPage,
-          onPress: (int pageIndex) {
-            setState(() {
-              _pageController.animateToPage(pageIndex,
-                  duration: Duration(microseconds: 550),
-                  curve: Curves.easeInOut);
-            });
-          },
-        ),
+//        title: CustomAppBarWidget(
+//          _currentPage,
+//          onPress: (int pageIndex) {
+//            setState(() {
+//              _pageController.animateToPage(pageIndex,
+//                  duration: Duration(microseconds: 550),
+//                  curve: Curves.easeInOut);
+//            });
+//          },
+//        ),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.menu), onPressed: () {}),
         ],
@@ -121,7 +121,7 @@ class CustomAppBarState extends State<CustomAppBarWidget>
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this);
+    _animationController = AnimationController(vsync: this,duration: Duration(seconds: 4));
     _animationController.forward();
   }
 
@@ -170,16 +170,16 @@ class CustomAppBarState extends State<CustomAppBarWidget>
                 padding: EdgeInsets.all(0)),
           ],
         ),
-        new SlideTransition(position:new Tween(begin:Offset(0.0,0.0),end: Offset(10.0, 0.0)).animate(_animationController),
-            child: new Container(
-          width: 50,
-          height: 5,
-          constraints: BoxConstraints(),
-          child: new Divider(
-            color: Colors.blue,
-            height: 15,
-          ),
-        )),
+//        new SlideTransition(position:new Tween(begin:Offset(0.0,0.0),end: Offset(10.0, 0.0)).animate(_animationController),
+//            child: new Container(
+//          width: 50,
+//          height: 5,
+//          constraints: BoxConstraints(),
+//          child: new Divider(
+//            color: Colors.blue,
+//            height: 5,
+//          ),
+//        )),
 
 //        new AnimatedPositioned(child: new Container(
 //          decoration: new UnderlineTabIndicator(

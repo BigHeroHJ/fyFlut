@@ -19,12 +19,26 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
       color: Colors.red,
       child: new Column(
         children: <Widget>[
+          new Container(
+//  child: ListView(
+//     scrollDirection: Axis.horizontal,
+//     children: <Widget>[
+//       Text(" A RenderFlex overflowed by A RenderFlex overflowed by"
+//           " A RnderFlex overflowed by A RenderFlex overflowed by A RenderFlex overflowed by"
+//           " A RenderFlex overflowed by A RenderFlex overflowed by"),
+//     ],
+//   ),
+              ),
 //          new Container(
 //            color: Colors.blue,
 //            child: FlareActor("assets/New File.flr", // You can find the example project here: https://www.2dimensions.com/a/castor/files/flare/change-color-example
 //              fit: BoxFit.contain, alignment: Alignment.center,animation: "changeColor",),
 //            constraints: BoxConstraints.expand(width: 100, height: 50),
 //          ),
+//        Container(child: Text("我的饿过我的饿过我的饿过我的饿过"
+//            "我的饿过我的饿过饿过我的饿过饿过我的饿过饿过我的饿过我的饿过"
+//            "我的饿过我的饿过我的饿过"
+//            "我的饿过我的饿过我的饿过我的饿过我的饿过"),),
           new Expanded(child: buildTransTable()),
           bottomWidget(),
         ],
@@ -57,69 +71,73 @@ class _AudioTranslateWidgetState extends State<AudioTranslateWidget> {
   buildMessage(BuildContext context, int index) {
     AudioTransModel model = listMessage[index];
     var message;
+
     if (model.isCN) {
       //右边
-      message = new Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Container(
-            //???本来这个Container 是可以根据子空间大小伸缩的，在listview.builder 中不行要warp在row 中才可以？？？
-            child: Text(
-              model.transText,
-              style: TextStyle(color: Colors.black),
-            ),
-            padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-            decoration: BoxDecoration(
-              color: Colors.lightBlue,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            constraints: BoxConstraints(
-              minHeight: 40,
-              minWidth: 60,
-maxHeight: double.infinity,
+      message = new Container(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Container(
+              child: Expanded(
+                child: Text(
+                  model.transText,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+              decoration: BoxDecoration(
+                color: Colors.lightBlue,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              constraints: BoxConstraints(
+                minHeight: 40,
+                minWidth: 60,
+                maxHeight: double.infinity,
 //                maxWidth: MediaQuery.of(context).size.width * 0.7
+              ),
+              margin: EdgeInsets.only(bottom: 10.0, right: 20, left: 20),
             ),
-            margin: EdgeInsets.only(bottom: 10.0, right: 20, left: 20),
-          ),
-        ],
+          ],
+        ),
       );
     } else {
       //左边
       message = new Row(
         children: <Widget>[
-         UnconstrainedBox(
-           child:  Container(
-             child: new Row(
-               children: <Widget>[
-                 new Padding(
-                   child: Text(
-                     "moriTrans",
-                     style: TextStyle(color: Colors.black),
-                     maxLines: 0,
-                   ),
-                   padding: EdgeInsets.all(10),
+          Spacer(
+            flex: 1,
+          ),
 
-                 ),
-//                SizedBox(
-//                  width: 30,
-//                  height: 30,
-//                  child: FlutterLogo(),
-//                ),
-               ],
-             ),
-             padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-             decoration: BoxDecoration(
-                 color: Colors.lightBlue,
-                 borderRadius: BorderRadius.circular(8.0)),
-             constraints: BoxConstraints(
-                 minHeight: 40,
-                 minWidth: 60,
-                 maxHeight: double.infinity,
-                 maxWidth: MediaQuery.of(context).size.width * 0.7
-             ),
-             margin: EdgeInsets.only(bottom: 10.0, left: 20, right: 20),
-           ),
-         )
+          Flexible(
+            flex: 8,
+            fit:FlexFit.loose,
+            child: Container(
+              child: new Row(
+                children: <Widget>[
+                  Expanded(child: Text(",Test1Test1Test1Test1Test1Test1"
+                      ",,Test1Test1Test1"
+                      ",,Test1Test1Test1Test1 ")),
+                //Text("Test1Test1Test1Test1TTest1Test1Test1Test1TTest1Test1Test1Test1T"),
+                ],
+              ),
+              padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+              decoration: BoxDecoration(
+                  color: Colors.lightBlue,
+                  borderRadius: BorderRadius.circular(8.0)),
+              constraints: BoxConstraints(
+                minHeight: 40,
+                minWidth: 60,
+                maxHeight: double.infinity,
+                maxWidth: MediaQuery.of(context).size.width - 180
+              ),
+           margin: EdgeInsets.only(bottom: 10.0, left: 20, right: 20),
+            ),
+
+          ),
+        Spacer(
+          flex: 1,
+        )
         ],
       );
     }
